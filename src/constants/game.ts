@@ -1,4 +1,9 @@
 import { ShipType, CellStatus } from "../types/battleship";
+import CarrierImg from "../assets/Carrier Shape.png";
+import BattleshipImg from "../assets/Battleship Shape.png";
+import CruiserImg from "../assets/Cruiser Shape.png";
+import SubmarineImg from "../assets/Submarine Shape.png";
+import DestroyerImg from "../assets/Aircraft Shape.png";
 export const GAME_CONSTANTS = {
   BOARD_SIZE: 10,
   MAX_SHOTS: 100,
@@ -10,35 +15,35 @@ export const SHIP_DISPLAY_DATA = [
     type: ShipType.CARRIER,
     size: 5,
     description: "Aircraft Carrier - 5 cells",
-    image: "/src/assets/Carrier Shape.png",
+    image: CarrierImg,
   },
   {
     name: "Battleship",
     type: ShipType.BATTLESHIP,
     size: 4,
     description: "Battleship - 4 cells",
-    image: "/src/assets/Battleship Shape.png",
+    image: BattleshipImg,
   },
   {
     name: "Cruiser",
     type: ShipType.CRUISER,
     size: 3,
     description: "Cruiser - 3 cells",
-    image: "/src/assets/Cruiser Shape.png",
+    image: CruiserImg,
   },
   {
     name: "Submarine",
     type: ShipType.SUBMARINE,
     size: 3,
     description: "Submarine - 3 cells",
-    image: "/src/assets/Submarine Shape.png",
+    image: SubmarineImg,
   },
   {
     name: "Destroyer",
     type: ShipType.DESTROYER,
     size: 2,
     description: "Destroyer - 2 cells",
-    image: "/src/assets/Aircraft Shape.png",
+    image: DestroyerImg,
   },
 ] as const;
 
