@@ -6,7 +6,13 @@ A modern, accessible, and fully tested implementation of the classic Battleship 
 
 **Note:** This implementation only covers player 1 actions (single player). There is no AI or opponent logic—your goal is to sink all ships on the board.
 
-## 🚀 Technologies Used
+## � Live Demo
+
+Play the deployed app on Vercel:
+
+https://battleship-pink.vercel.app/
+
+## �🚀 Technologies Used
 
 - **React 19** – UI components and hooks
 - **TypeScript** – Type safety throughout
