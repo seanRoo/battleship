@@ -19,8 +19,8 @@ const TOAST = {
   durations: {
     hit: 1000,
     miss: 1000,
-    sunk: 1500,
-    gameover: 2000,
+    sunk: 1000,
+    gameover: 1000,
   },
 } as const;
 
@@ -88,8 +88,15 @@ const BoardToast = () => {
     }
   }, [lastShot, gameOver]);
 
+  // Failsafe: ensure the toast auto-closes after its duration
+  useEffect(() => {
+    if (!toast) return;
+    const id = window.setTimeout(() => setOpen(false), toast.duration);
+    return () => clearTimeout(id);
+  }, [toast]);
+
   return (
-    <Toast.Provider swipeDirection={TOAST.swipeDirection}>
+    <Toast.Provider swipeDirection={TOAST.swipeDirection} duration={1000}>
       {toast && (
         <Toast.Root
           open={open}
@@ -100,12 +107,7 @@ const BoardToast = () => {
           duration={toast.duration}
           asChild
         >
-          <div
-            className="board-toast-inner"
-            onMouseEnter={() => setOpen(false)}
-          >
-            {toast.message}
-          </div>
+          <div className="board-toast-inner">{toast.message}</div>
         </Toast.Root>
       )}
       <Toast.Viewport className={clsx("board-toast", toast?.type)} />
