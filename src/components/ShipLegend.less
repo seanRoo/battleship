@@ -1,0 +1,128 @@
+@import (reference) "../styles/variables.less";
+
+.ship-legend {
+  .panel-base();
+  .panel-shadow();
+  padding: @spacing-lg;
+  width: 300px;
+
+  h3 {
+    font-family: @font-family-display;
+    font-size: 1.4rem;
+    color: @text-color;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0 0 @spacing-lg 0;
+    text-align: center;
+    border-bottom: 1px solid @primary;
+    padding-bottom: @spacing-sm;
+  }
+}
+
+.ship-legend-list {
+  display: flex;
+  flex-direction: column;
+  gap: @spacing-md;
+}
+
+.ship-legend-item {
+  display: grid;
+  grid-template-columns: 90px 1fr auto;
+  align-items: center;
+  gap: @spacing-md;
+  padding: @spacing-sm;
+  background: fade(@background-dark, 40%);
+  border-radius: @border-radius;
+  transition: @transition-slow;
+  position: relative;
+  overflow: hidden;
+
+  &.sunk {
+    background: fade(@danger, 20%);
+    .ship-name {
+      color: darken(@text-color, 40%);
+      text-decoration: line-through;
+    }
+    .ship-image {
+      filter: grayscale(100%) brightness(0.5);
+    }
+  }
+}
+
+.ship-image {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5)) brightness(1.1)
+    contrast(1.2);
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.7)) brightness(1.2)
+      contrast(1.3);
+  }
+}
+
+.ship-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.ship-name {
+  font-weight: 700;
+  font-size: 1rem;
+  color: @text-color;
+}
+
+.ship-size {
+  font-size: 0.8rem;
+  color: darken(@text-color, 20%);
+}
+
+.sunk-badge {
+  position: absolute;
+  top: 50%;
+  right: -20px;
+  transform: translateY(-50%) rotate(-45deg);
+  background: @danger;
+  color: @text-color;
+  padding: 4px 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 768px) {
+  .ship-legend {
+    padding: @spacing-sm;
+    h3 {
+      font-size: 1.1rem;
+      margin-bottom: @spacing-sm;
+      padding-bottom: @spacing-xs;
+    }
+  }
+
+  .ship-legend-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: @spacing-sm;
+  }
+
+  .ship-legend-item {
+    grid-template-columns: 50px 1fr;
+    padding: @spacing-xs;
+    gap: @spacing-sm;
+  }
+
+  .ship-name {
+    font-size: 0.8rem;
+  }
+
+  .ship-size {
+    font-size: 0.7rem;
+  }
+}

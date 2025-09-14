@@ -1,0 +1,309 @@
+@import (reference) "./variables.less";
+
+body {
+  font-family: @font-family-sans;
+  margin: 0;
+  background-color: @background-dark;
+  background-image: radial-gradient(
+    circle at top left,
+    rgba(255, 255, 255, 0.05) 0%,
+    transparent 30%
+  );
+  color: @text-color;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.battleship-app-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+  padding: @spacing-xl @spacing-lg;
+  text-align: center;
+
+  h1 {
+    font-family: @font-family-display;
+    font-size: 3rem;
+    color: @text-color;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin: 0 0 @spacing-xl 0;
+    text-shadow: 0 0 10px rgba(238, 108, 77, 0.3),
+      0 0 20px rgba(238, 108, 77, 0.2);
+  }
+}
+
+.battleship-info {
+  .panel-base();
+  padding: @spacing-sm @spacing-lg;
+  margin-bottom: @spacing-lg;
+  border: 1px solid lighten(@background-light, 10%);
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+  font-size: 1.1rem;
+  strong {
+    color: @secondary;
+    font-weight: 700;
+  }
+}
+
+.battleship-board-area {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 32px;
+  margin-bottom: 24px;
+  justify-content: center;
+}
+
+.battleship-board-wrapper {
+  border: 2px solid @primary;
+  padding: 8px;
+  background: fade(@background-light, 50%);
+  border-radius: @border-radius;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  position: relative;
+  z-index: 1;
+}
+
+.board-toast {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+
+  .board-toast-inner {
+    pointer-events: auto;
+    min-width: 160px;
+    padding: 12px 18px;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: 700;
+    color: @text-color;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+    transform-origin: center;
+  }
+
+  &.hit .board-toast-inner {
+    background: darken(@cell-hit, 5%);
+    border: 2px solid lighten(@cell-hit, 6%);
+    color: #fff;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  }
+
+  &.miss .board-toast-inner {
+    background: darken(@cell-miss, 5%);
+    border: 2px solid lighten(@cell-miss, 6%);
+    color: #fff;
+  }
+
+  &.gameover .board-toast-inner {
+    background: darken(@cell-sunk, 5%);
+    border: 2px solid lighten(@cell-sunk, 6%);
+    color: #fff;
+    font-size: 1.1rem;
+  }
+}
+
+.battleship-feedback {
+  margin: 16px 0;
+  min-height: 30px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: @secondary;
+  text-align: center;
+}
+
+.battleship-sunk {
+  margin-bottom: 16px;
+  font-size: 1rem;
+  strong {
+    color: @success;
+  }
+}
+
+.battleship-gameover {
+  color: @success;
+  font-weight: 700;
+  font-size: 1.8rem;
+  margin-bottom: 16px;
+  text-shadow: 0 0 8px fade(@success, 50%);
+}
+
+.battleship-restart {
+  font-family: @font-family-display;
+  background: @secondary;
+  color: @text-color;
+  border: none;
+  padding: 12px 24px;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-radius: @border-radius;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+
+  &:hover {
+    background: lighten(@secondary, 10%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  }
+}
+
+.battleship-restart-icon {
+  display: none; // Hidden by default
+}
+
+@media (max-width: @mobile) {
+  .battleship-app-main {
+    padding-top: @spacing-lg;
+  }
+
+  .battleship-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 98%;
+    padding: 0 @spacing-md;
+
+    h1,
+    .battleship-info,
+    .battleship-restart-icon {
+      display: flex;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 1.3rem;
+      margin: 0;
+      flex-grow: 1;
+      text-align: left;
+    }
+
+    .battleship-info {
+      margin: 0;
+      padding: @spacing-xs @spacing-sm;
+      font-size: 1rem;
+      border: none;
+      box-shadow: none;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      gap: @spacing-xs;
+
+      strong {
+        font-size: 1.8rem;
+        display: inline-flex;
+        align-items: center;
+      }
+    }
+
+    .battleship-restart-icon {
+      display: flex;
+      align-items: center;
+      background: none;
+      border: none;
+      color: @secondary;
+      font-size: 1.6rem;
+      padding: 0;
+      margin-left: @spacing-sm;
+      cursor: pointer;
+      margin-top: 3px;
+    }
+  }
+
+  .battleship-restart {
+    display: none; // Hide original button on mobile
+  }
+}
+
+.battleship-footer {
+  margin-top: 48px;
+  font-size: 0.8rem;
+  color: @primary;
+  text-align: center;
+  opacity: 0.6;
+}
+
+@media (max-width: 900px) {
+  .battleship-board-area {
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .battleship-app-main {
+    padding: 16px 8px;
+
+    h1 {
+      font-size: 2rem;
+      letter-spacing: 2px;
+    }
+  }
+
+  .battleship-info {
+    padding: 6px 12px;
+    font-size: 1rem;
+    margin-bottom: 12px;
+  }
+
+  .battleship-board-area {
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .battleship-board-wrapper {
+    padding: 4px;
+  }
+
+  .battleship-feedback {
+    font-size: 1.2rem;
+    margin: 12px 0;
+  }
+
+  .battleship-sunk {
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+  }
+
+  .battleship-gameover {
+    font-size: 1.4rem;
+    margin-bottom: 12px;
+  }
+
+  .battleship-restart {
+    padding: 10px 16px;
+    font-size: 1rem;
+  }
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hide-mobile {
+  @media (max-width: 600px) {
+    display: none;
+  }
+}
+
+.hide-desktop {
+  @media (min-width: 601px) {
+    display: none;
+  }
+}
